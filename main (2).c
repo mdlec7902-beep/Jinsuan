@@ -8,12 +8,12 @@ Welcome to GDB Online.
 *******************************************************************************/
 #include <stdio.h>
 
-#define ITEM 5   // 상품 개수 (추후 확장 가능)
+#define ITEM 5   
 
 int main() {
-    int in[ITEM] = {0};     // 입고 수량 (초기값 0)
-    int out[ITEM] = {0};    // 판매 수량 (초기값 0)
-    int total[ITEM] = {0};  // 재고 수량 (초기값 0)
+    int in[ITEM] = {0};     
+    int out[ITEM] = {0};    
+    int total[ITEM] = {0};  
 
     int menu, sub, id, qty, i;
 
@@ -21,11 +21,11 @@ int main() {
         printf("\n원하는 메뉴를 선택하세요.(1. 입고, 2. 판매, 3. 상품현황, 4. 종료)\n");
         scanf("%d", &menu);
 
-        if (menu == 1) {   // 입고
+        if (menu == 1) {   
             printf("입고수량 입력 : 전체 상품 입고수량 입력 1, 개별 상품 입력 2를 선택\n");
             scanf("%d", &sub);
 
-            if (sub == 1) {   // 전체 상품 입고
+            if (sub == 1) {   
                 printf("전체 상품의 입고수량을 입력 : ");
                 for (i = 0; i < ITEM; i++) {
                     scanf("%d", &qty);
@@ -33,7 +33,7 @@ int main() {
                     in[i] += qty;
                     total[i] += qty;
                 }
-            } else if (sub == 2) {  // 개별 상품 입고
+            } else if (sub == 2) {  
                 printf("상품ID : ");  
                 scanf("%d", &id);
                 if (id < 1 || id > ITEM) { printf("잘못된 상품 ID입니다.\n"); continue; }
@@ -44,11 +44,11 @@ int main() {
                 total[id - 1] += qty;
             }
 
-        } else if (menu == 2) {   // 판매
+        } else if (menu == 2) {   
             printf("판매수량 입력 : 전체 상품 판매수량 입력 1, 개별 상품 입력 2를 선택\n");
             scanf("%d", &sub);
 
-            if (sub == 1) {   // 전체 상품 판매
+            if (sub == 1) {   
                 printf("전체 상품의 판매수량을 입력 : ");
                 for (i = 0; i < ITEM; i++) {
                     scanf("%d", &qty);
@@ -57,7 +57,7 @@ int main() {
                     out[i] += qty;
                     total[i] -= qty;
                 }
-            } else if (sub == 2) {   // 개별 상품 판매
+            } else if (sub == 2) {  
                 printf("상품ID : ");
                 scanf("%d", &id);
                 if (id < 1 || id > ITEM) { printf("잘못된 상품 ID입니다.\n"); continue; }
@@ -69,7 +69,7 @@ int main() {
                 total[id - 1] -= qty;
             }
 
-        } else if (menu == 3) {   // 상품현황
+        } else if (menu == 3) {   
             printf("재고수량 : "); 
             for (i = 0; i < ITEM; i++) { printf("%d ", total[i]); }
             printf("\n");
@@ -91,9 +91,7 @@ int main() {
             printf("가장 많이 판매된 상품 : ID %d, 판매량 %d\n", max_id, max_sales);
             printf("가장 적게 판매된 상품 : ID %d, 판매량 %d\n", min_id, min_sales);
 
-            // 재고부족 부분 제거 완료
-
-        } else if (menu == 4) {   // 종료
+        } else if (menu == 4) {   
             printf("프로그램 종료\n");
             break;
 
