@@ -1,0 +1,104 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+  GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+  C#, OCaml, VB, Perl, Swift, Prolog, Javascript, Pascal, COBOL, HTML, CSS, JS
+  Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+
+#define ITEM 5   // 상품 개수 (추후 확장 가능)
+
+int main() {
+    int in[ITEM] = {0};     // 입고 수량 (초기값 0)
+    int out[ITEM] = {0};    // 판매 수량 (초기값 0)
+    int total[ITEM] = {0};  // 재고 수량 (초기값 0)
+
+    int menu, sub, id, qty, i;
+
+    while (1) {
+        printf("\n원하는 메뉴를 선택하세요.(1. 입고, 2. 판매, 3. 상품현황, 4. 종료)\n");
+        scanf("%d", &menu);
+
+        if (menu == 1) {   // 입고
+            printf("입고수량 입력 : 전체 상품 입고수량 입력 1, 개별 상품 입력 2를 선택\n");
+            scanf("%d", &sub);
+
+            if (sub == 1) {   // 전체 상품 입고
+                printf("전체 상품의 입고수량을 입력 : ");
+                for (i = 0; i < ITEM; i++) {
+                    scanf("%d", &qty);
+                    if (qty < 0) { printf("입고 수량은 음수일 수 없습니다.\n"); i--; continue; }
+                    in[i] += qty;
+                    total[i] += qty;
+                }
+            } else if (sub == 2) {  // 개별 상품 입고
+                printf("상품ID : ");  
+                scanf("%d", &id);
+                if (id < 1 || id > ITEM) { printf("잘못된 상품 ID입니다.\n"); continue; }
+                printf("입고수량 : ");
+                scanf("%d", &qty);
+                if (qty < 0) { printf("입고 수량은 음수일 수 없습니다.\n"); continue; }
+                in[id - 1] += qty;
+                total[id - 1] += qty;
+            }
+
+        } else if (menu == 2) {   // 판매
+            printf("판매수량 입력 : 전체 상품 판매수량 입력 1, 개별 상품 입력 2를 선택\n");
+            scanf("%d", &sub);
+
+            if (sub == 1) {   // 전체 상품 판매
+                printf("전체 상품의 판매수량을 입력 : ");
+                for (i = 0; i < ITEM; i++) {
+                    scanf("%d", &qty);
+                    if (qty < 0) { printf("판매 수량은 음수일 수 없습니다.\n"); i--; continue; }
+                    if (qty > total[i]) { printf("상품 %d번 재고 부족! 현재 재고: %d\n", i + 1, total[i]); i--; continue; }
+                    out[i] += qty;
+                    total[i] -= qty;
+                }
+            } else if (sub == 2) {   // 개별 상품 판매
+                printf("상품ID : ");
+                scanf("%d", &id);
+                if (id < 1 || id > ITEM) { printf("잘못된 상품 ID입니다.\n"); continue; }
+                printf("판매수량 : ");
+                scanf("%d", &qty);
+                if (qty < 0) { printf("판매 수량은 음수일 수 없습니다.\n"); continue; }
+                if (qty > total[id - 1]) { printf("재고 부족! 현재 재고: %d\n", total[id - 1]); continue; }
+                out[id - 1] += qty;
+                total[id - 1] -= qty;
+            }
+
+        } else if (menu == 3) {   // 상품현황
+            printf("재고수량 : "); 
+            for (i = 0; i < ITEM; i++) { printf("%d ", total[i]); }
+            printf("\n");
+
+            int total_in = 0, total_sales = 0;
+            for (i = 0; i < ITEM; i++) { total_in += in[i]; total_sales += out[i]; }
+
+            double rate = 0.0;
+            if (total_in > 0) rate = (double)total_sales / total_in * 100;
+
+            printf("총 판매량 : %d (판매율 %.2f%%)\n", total_sales, rate);
+
+            int max_sales = out[0], min_sales = out[0];
+            int max_id = 1, min_id = 1;
+            for (i = 1; i < ITEM; i++) {
+                if (out[i] > max_sales) { max_sales = out[i]; max_id = i + 1; }
+                if (out[i] < min_sales) { min_sales = out[i]; min_id = i + 1; }
+            }
+            printf("가장 많이 판매된 상품 : ID %d, 판매량 %d\n", max_id, max_sales);
+            printf("가장 적게 판매된 상품 : ID %d, 판매량 %d\n", min_id, min_sales);
+
+            // 재고부족 부분 제거 완료
+
+        } else if (menu == 4) {   // 종료
+            printf("프로그램 종료\n");
+            break;
+
+        } else { printf("잘못된 메뉴입니다.\n"); }
+    }
+
+    return 0;
+}
