@@ -12,11 +12,11 @@ Code, Compile, Run and Debug online from anywhere in world.
 
 int main()
 {
-    int item;  //상품
+    int item;  
     int i;
-    int input[MAX]; //입고 배열
-    int output[MAX]; //출고 배열
-    int total[MAX]; //총 상품 배열
+    int input[MAX]; 
+    int output[MAX]; 
+    int total[MAX]; 
     int id;
 
     printf("판매할 상품의 갯수를 입력하시오 : ");
