@@ -8,45 +8,53 @@ Code, Compile, Run and Debug online from anywhere in world.
 *******************************************************************************/
 #include <stdio.h>
 
-#define arr 100
+#define MAX 100
 
 int main()
 {
-    int item;
+    int item;  //상품
     int i;
-    int input[arr];
-    int output[arr];
-    int total[arr];
+    int input[MAX]; //입고 배열
+    int output[MAX]; //출고 배열
+    int total[MAX]; //총 상품 배열
     int id;
-    
-    printf("판매할 상품의 갯수를 입력하시오.");
+
+    printf("판매할 상품의 갯수를 입력하시오 : ");
     scanf("%d", &item);
+
+    if (item <= 0 || item >100) 
+        printf("상품의 갯수는 1~100개 사이여야 합니다.");
     
-    
+
     printf("상품별 입고수량을 입력하시오");
-    for(i=0; i <item; i++){
+    for (i = 0; i < item; i++) {
         scanf("%d", &input[i]);
     }
- 
+
     printf("상품별 판매수량을 입력하시오");
-    for(i=0; i <item; i++){
+    for (i = 0; i < item; i++) {
         scanf("%d", &output[i]);
     }
-    
-   
-    
-    for(i=0;i<item;i++){
+
+
+
+    for (i = 0; i < item; i++) {
         total[i] = input[i] - output[i];
     }
-    
+
     printf("재고파악을 위해 원하는 상품의 ID를 입력하시오");
     scanf("%d", &id);
-    
-    printf("압력한 상품의 재고수량: %d\n", total[id - 1]);
-    
-    printf("전체 상품의 재고수량: ");
-    for(i=0;i<item;i++){
-        printf("%d ", total[i]);
+
+    if (id > item) 
+        printf("입력하신 상품 ID가 올바르지 않습니다");
+
+    else {
+        printf("압력한 상품의 재고수량: %d\n", total[id - 1]);
+
+        printf("전체 상품의 재고수량: ");
+        for (i = 0; i < item; i++) {
+            printf("%d ", total[i]);
+        }
     }
     
     return 0;
