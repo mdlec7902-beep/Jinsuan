@@ -7,12 +7,16 @@ Code, Compile, Run and Debug online from anywhere in world.
 
 *******************************************************************************/
 #include <stdio.h>
-#define ARR 100
+#define MAX 100
 
 int main()
 {
-    int item, i, id;
-    int in[ARR], out[ARR], total[ARR];
+    int item;
+    int i;
+    int id;
+    int in[MAX];
+    int out[MAX];
+    int total[MAX];
     
     printf("판매할 상품 갯수 입력: ");
     scanf("%d", &item);
